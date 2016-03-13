@@ -3,17 +3,21 @@ import React, {Component} from 'react';
 class AddContact extends Component{
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
+        console.log('contact in addcontact',this.props.contact);
     }
     onSubmit(e){
         e.preventDefault();
-        let contact = {
+
+        var contact = {
             name: this.refs.name.value.trim(),
             mobile: this.refs.mobile.value.trim(),
-            email: this.refs.name.value.trim()
+            email: this.refs.email.value.trim()
         };
+
+
+        this.refs.name.value = '';
+        this.refs.mobile.value = '';
+        this.refs.email.value = '';
         this.props.addContact(contact);
     }
     render(){

@@ -6,13 +6,14 @@ class App extends Component{
         super(props);
         this.state = {
             contact: []
-
         }
     }
     handleAddContact(contact){
-        console.log('from App',contact);
-        this.setState({contact: contact});
-        console.log('from state',contact);
+        var contactArray = this.state.contact;
+        contactArray.push(contact);
+        console.log('contactArray',contactArray.length);
+        console.log('contactArray',contactArray);
+        this.setState({contact: contactArray});
     }
     render(){
         console.log(this.state.contact.length);
@@ -24,7 +25,6 @@ class App extends Component{
         return(
             <div>
                 <AddContact addContact={this.handleAddContact.bind(this)}/>
-                -Add Contact
                 -List contact
                 -delete contact
                 -edit contact
