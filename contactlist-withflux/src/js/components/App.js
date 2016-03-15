@@ -1,6 +1,7 @@
 var React = require('react'),
     AppActions = require('../actions/AppActions'),
-    AppStore = require('../store/AppStore');
+    AppStore = require('../store/AppStore'),
+    AddContact = require('./AddContact.js');
 var App = React.createClass({
     componentDidMount(){
         AppStore.addChangeListener(this.onChange);
@@ -15,9 +16,10 @@ var App = React.createClass({
         return getAppState();
     },
     render(){
+        console.log('contacts',this.state.contactsList);
         return(
             <div>
-                ContactList
+                <AddContact />
             </div>
         )
     }
@@ -25,7 +27,7 @@ var App = React.createClass({
 
 function getAppState(){
     return{
-
+        contactsList: AppStore.getContacts()
     }
 }
 module.exports = App;
