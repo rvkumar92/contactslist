@@ -1,7 +1,8 @@
 var React = require('react'),
     AppActions = require('../actions/AppActions'),
     AppStore = require('../store/AppStore'),
-    AddContact = require('./AddContact.js');
+    AddContact = require('./AddContact.js'),
+    ContactList = require('./ContactList');
 var App = React.createClass({
     componentDidMount(){
         AppStore.addChangeListener(this.onChange);
@@ -20,6 +21,7 @@ var App = React.createClass({
         return(
             <div>
                 <AddContact />
+                <ContactList contacts={this.state.contactsList}/>
             </div>
         )
     }

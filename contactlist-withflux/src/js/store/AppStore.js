@@ -25,7 +25,15 @@ var AppStore = assign({},EventEmitter.prototype,{
     },
     getContacts(){
         return _contacts;
+    },
+    receiveContacts(contacts){
+        _contacts = contacts;
+    },
+    removeContact(contactId){
+        var index = _contacts.findIndex(x => x.id === contactId);
+        _contacts.splice(index,1);
     }
+
 });
 
 AppDispatcher.register(function(payload){
@@ -38,6 +46,25 @@ AppDispatcher.register(function(payload){
             AppStore.saveContact(action.contacts);
             //Save to api --firebase
             appApi.saveContact(action.contacts);
+            //EmitChange
+            AppStore.emit(CHANGE_EVENT);
+            break;
+        case AppConstants.RECEIVE_CONTACT:
+            console.log('Receiving Contact...');
+
+            //store save
+            AppStore.receiveContacts(action.contacts);
+
+            //EmitChange
+            AppStore.emit(CHANGE_EVENT);
+            break;
+        case AppConstants.REMOVE_CONTACT:
+            console.log('Remove Contact...');
+
+            //store save
+            AppStore.removeContact(action.contactId);
+
+            appApi.removeContact(action.contactId);
             //EmitChange
             AppStore.emit(CHANGE_EVENT);
             break;

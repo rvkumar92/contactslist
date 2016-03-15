@@ -8,7 +8,17 @@ var AppActions = {
         });
     },
     receiveContacts(contacts){
-        console.log('AppACtions',contacts);
+        AppDispatcher.handleViewActions({
+            actionType: AppConstants.RECEIVE_CONTACT,
+            contacts: contacts
+        });
+
+    },
+    removeContact(contactId){
+        AppDispatcher.handleViewActions({
+            actionType: AppConstants.REMOVE_CONTACT,
+            contactId: contactId
+        })
     }
 };
 
