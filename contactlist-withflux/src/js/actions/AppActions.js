@@ -19,6 +19,12 @@ var AppActions = {
             actionType: AppConstants.REMOVE_CONTACT,
             contactId: contactId
         })
+    },
+    editContact(editContact){
+        AppDispatcher.handleViewActions({
+            actionType: AppConstants.EDIT_CONTACT,
+            editContact: editContact
+        })
     }
 };
 

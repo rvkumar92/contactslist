@@ -2,6 +2,7 @@ var React = require('react'),
     AppActions = require('../actions/AppActions'),
     AppStore = require('../store/AppStore'),
     AddContact = require('./AddContact.js'),
+    EditContact = require('./EditContact.js'),
     ContactList = require('./ContactList');
 var App = React.createClass({
     componentDidMount(){
@@ -17,10 +18,14 @@ var App = React.createClass({
         return getAppState();
     },
     render(){
-        console.log('contacts',this.state.contactsList);
+        if(this.state.contactToEdit == ''){
+            var form = <AddContact />
+        }else{
+            var form = <EditContact contactToEdit={this.state.contactToEdit}/>
+        }
         return(
             <div>
-                <AddContact />
+                {form}
                 <ContactList contacts={this.state.contactsList}/>
             </div>
         )
@@ -29,7 +34,8 @@ var App = React.createClass({
 
 function getAppState(){
     return{
-        contactsList: AppStore.getContacts()
+        contactsList: AppStore.getContacts(),
+        contactToEdit: AppStore.getContactToEdit()
     }
 }
 module.exports = App;

@@ -8,6 +8,8 @@ var CHANGE_EVENT = 'change';
 
 var _contacts = [];
 
+var _contact_to_edit = '';
+
 var AppStore = assign({},EventEmitter.prototype,{
     addChangeListener(callback){
         this.on('change',callback);
@@ -32,6 +34,12 @@ var AppStore = assign({},EventEmitter.prototype,{
     removeContact(contactId){
         var index = _contacts.findIndex(x => x.id === contactId);
         _contacts.splice(index,1);
+    },
+    editContact(editContact){
+        _contact_to_edit = editContact;
+    },
+    getContactToEdit(){
+        return _contact_to_edit;
     }
 
 });
@@ -65,6 +73,16 @@ AppDispatcher.register(function(payload){
             AppStore.removeContact(action.contactId);
 
             appApi.removeContact(action.contactId);
+            //EmitChange
+            AppStore.emit(CHANGE_EVENT);
+            break;
+        case AppConstants.EDIT_CONTACT:
+            console.log('Editing Contact...');
+
+            //store save
+            AppStore.editContact(action.editContact);
+
+            //appApi.removeContact(action.contactId);
             //EmitChange
             AppStore.emit(CHANGE_EVENT);
             break;
