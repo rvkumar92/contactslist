@@ -24,5 +24,16 @@ module.exports = {
     removeContact(contactId){
         this.firebaseRef = new firebase('https://contactlistwithflux.firebaseio.com/contacts/'+ contactId);
         this.firebaseRef.remove();
+    },
+    updateContact(contact){
+        var id = contact.id;
+        var updatedContact = {
+            name: contact.name,
+            number: contact.number,
+            email: contact.email
+        };
+        console.log(updatedContact);
+        this.firebaseRef = new firebase('https://contactlistwithflux.firebaseio.com/contacts/'+contact.id+'/contact');
+        this.firebaseRef.update(updatedContact);
     }
 };

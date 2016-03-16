@@ -25,6 +25,12 @@ var AppActions = {
             actionType: AppConstants.EDIT_CONTACT,
             editContact: editContact
         })
+    },
+    updateContact(updateContact){
+        AppDispatcher.handleViewActions({
+            actionType: AppConstants.UPDATE_CONTACT,
+            updateContact: updateContact
+        })
     }
 };
 
